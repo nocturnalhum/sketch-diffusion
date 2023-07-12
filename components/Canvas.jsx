@@ -39,8 +39,8 @@ export default function Canvas() {
     const draw = (e) => {
       if (!isDrawing) return;
       const { offsetX: x, offsetY: y } = e.nativeEvent;
-      contextRef.current.lineTo(x, y);
-      contextRef.current.stroke();
+      ctx.lineTo(x, y);
+      ctx.stroke();
     };
 
     ctx.addEventListener('touchstart', startDrawing);

@@ -36,52 +36,87 @@ export default function Canvas() {
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
+
+    const startDrawing = (e) => {
+      const { touches } = e;
+      const { pageX, pageY } = touches[0];
+      const rect = canvas.getBoundingClientRect();
+      const x = pageX - rect.left;
+      const y = pageY - rect.top;
+
+      contextRef.current.beginPath();
+      contextRef.current.moveTo(x, y);
+      setIsDrawing(true);
+    };
+
     const draw = (e) => {
       if (!isDrawing) return;
-      const { offsetX: x, offsetY: y } = e.nativeEvent;
-      ctx.lineTo(x, y);
-      ctx.stroke();
+
+      const { touches } = e;
+      const { pageX, pageY } = touches[0];
+      const rect = canvas.getBoundingClientRect();
+      const x = pageX - rect.left;
+      const y = pageY - rect.top;
+
+      contextRef.current.lineTo(x, y);
+      contextRef.current.stroke();
+    };
+
+    const finishDrawing = () => {
+      const drawing = canvasRef.current.toDataURL('image/png');
+      localStorage.setItem('drawing', drawing);
+      contextRef.current.closePath();
+      setIsDrawing(false);
+    };
+
+    const cancelDrawing = () => {
+      setIsDrawing(false);
     };
 
     canvas.addEventListener('touchstart', startDrawing);
     canvas.addEventListener('touchmove', draw);
-    canvas.addEventListener('touchend', finishtDrawing);
+    canvas.addEventListener('touchend', finishDrawing);
+    canvas.addEventListener('touchcancel', cancelDrawing);
     return () => {
       canvas.removeEventListener('touchstart', startDrawing);
       canvas.removeEventListener('touchmove', draw);
-      canvas.removeEventListener('touchend', finishtDrawing);
+      canvas.removeEventListener('touchend', finishDrawing);
+      canvas.removeEventListener('touchcancel', cancelDrawing);
     };
   }, [isDrawing]);
 
-  const startDrawing = (e) => {
-    const { offsetX: x, offsetY: y } = e.nativeEvent;
-    contextRef.current.beginPath();
-    contextRef.current.moveTo(x, y);
-    setIsDrawing(true);
-  };
+  // const startDrawing = (e) => {
+  //   console.log('Start Drawing');
+  //   const { offsetX: x, offsetY: y } = e.nativeEvent;
+  //   contextRef.current.beginPath();
+  //   contextRef.current.moveTo(x, y);
+  //   setIsDrawing(true);
+  // };
 
-  const draw = (e) => {
-    if (!isDrawing) return;
-    const { offsetX: x, offsetY: y } = e.nativeEvent;
-    contextRef.current.lineTo(x, y);
-    contextRef.current.stroke();
-  };
+  // const draw = (e) => {
+  //   if (!isDrawing) return;
+  //   const { offsetX: x, offsetY: y } = e.nativeEvent;
+  //   contextRef.current.lineTo(x, y);
+  //   contextRef.current.stroke();
+  // };
 
-  const finishtDrawing = () => {
-    const drawing = canvasRef.current.toDataURL('image/png');
-    localStorage.setItem('drawing', drawing);
-    contextRef.current.closePath();
-    setIsDrawing(false);
-  };
+  // const finishDrawing = () => {
+  //   const drawing = canvasRef.current.toDataURL('image/png');
+  //   localStorage.setItem('drawing', drawing);
+  //   contextRef.current.closePath();
+  //   setIsDrawing(false);
+  // };
 
   return (
     <canvas
       ref={canvasRef}
-      onMouseDown={startDrawing}
-      onMouseMove={draw}
-      onMouseUp={finishtDrawing}
-      onMouseOut={finishtDrawing}
+      // onMouseDown={startDrawing}
+      // onMouseMove={draw}
+      // onMouseUp={finishtDrawing}
+      // onMouseOut={finishDrawing}
       className='border border-black bg-white'
     />
   );
 }
+
+// STOP HERE ....................................

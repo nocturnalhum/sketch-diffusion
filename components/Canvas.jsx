@@ -34,6 +34,8 @@ export default function Canvas() {
   }, []);
 
   useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
     const draw = (e) => {
       if (!isDrawing) return;
       const { offsetX: x, offsetY: y } = e.nativeEvent;
@@ -41,13 +43,13 @@ export default function Canvas() {
       contextRef.current.stroke();
     };
 
-    window.addEventListener('touchstart', startDrawing);
-    window.addEventListener('touchmove', draw);
-    window.addEventListener('touchend', finishtDrawing);
+    ctx.addEventListener('touchstart', startDrawing);
+    ctx.addEventListener('touchmove', draw);
+    ctx.addEventListener('touchend', finishtDrawing);
     return () => {
-      window.removeEventListener('touchstart', startDrawing);
-      window.removeEventListener('touchmove', draw);
-      window.removeEventListener('touchend', finishtDrawing);
+      ctx.removeEventListener('touchstart', startDrawing);
+      ctx.removeEventListener('touchmove', draw);
+      ctx.removeEventListener('touchend', finishtDrawing);
     };
   }, [isDrawing]);
 

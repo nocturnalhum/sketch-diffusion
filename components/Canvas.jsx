@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-export default function Touchcanvas() {
+export default function Canvas({ canvasRef, contextRef }) {
   const [isDrawing, setIsDrawing] = useState(false);
-  const canvasRef = useRef(null);
-  const contextRef = useRef(null);
+  // const canvasRef = useRef(null);
+  // const contextRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     canvas.width = Math.min(window.innerWidth * 0.9, 1500);
-    canvas.height = window.innerHeight * 0.9;
+    canvas.height = window.innerHeight * 0.85;
     const ctx = canvas.getContext('2d');
     ctx.lineCap = 'round';
     ctx.strokeStyle = 'black';
@@ -24,9 +24,9 @@ export default function Touchcanvas() {
     }
     const resize = () => {
       ctx.canvas.width = window.innerWidth * 0.9;
-      ctx.canvas.height = window.innerHeight * 0.9;
+      ctx.canvas.height = window.innerHeight * 0.85;
       ctx.canvas.style.width = `${window.innerWidth * 0.9}px`;
-      ctx.canvas.style.height = `${window.innerHeight * 0.9}px`;
+      ctx.canvas.style.height = `${window.innerHeight * 0.85}px`;
       ctx.lineWidth = 10;
     };
     window.addEventListener('resize', resize);

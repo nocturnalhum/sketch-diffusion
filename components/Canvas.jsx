@@ -43,13 +43,13 @@ export default function Canvas() {
       ctx.stroke();
     };
 
-    ctx.addEventListener('touchstart', startDrawing);
-    ctx.addEventListener('touchmove', draw);
-    ctx.addEventListener('touchend', finishtDrawing);
+    canvas.addEventListener('touchstart', startDrawing);
+    canvas.addEventListener('touchmove', draw);
+    canvas.addEventListener('touchend', finishtDrawing);
     return () => {
-      ctx.removeEventListener('touchstart', startDrawing);
-      ctx.removeEventListener('touchmove', draw);
-      ctx.removeEventListener('touchend', finishtDrawing);
+      canvas.removeEventListener('touchstart', startDrawing);
+      canvas.removeEventListener('touchmove', draw);
+      canvas.removeEventListener('touchend', finishtDrawing);
     };
   }, [isDrawing]);
 

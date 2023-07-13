@@ -2,12 +2,10 @@ import React, { useRef, useState } from 'react';
 import { BsImages } from 'react-icons/bs';
 import { SlActionUndo, SlActionRedo } from 'react-icons/sl';
 export default function Toolbox({ canvasRef, contextRef }) {
-  const imgRef = useRef(null);
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  const inputRef = useRef(null);
 
   const handleClick = (e) => {
-    console.log('Clicked');
-    imgRef.current?.click();
+    inputRef.current?.click();
   };
 
   const handleFileChange = (e) => {
@@ -15,8 +13,6 @@ export default function Toolbox({ canvasRef, contextRef }) {
     const imageUrl = URL.createObjectURL(file);
     const image = new Image();
     image.src = imageUrl;
-    console.log('image', image);
-    console.log('width', canvasRef.current);
     image.onload = () => {
       const canvas = canvasRef.current;
       const context = canvas.getContext('2d');
@@ -29,6 +25,8 @@ export default function Toolbox({ canvasRef, contextRef }) {
       const startX = (canvas.width - imageWidth) / 2;
       const startY = (canvas.height - imageHeight) / 2;
       context.drawImage(image, startX, startY, imageWidth, imageHeight);
+      const drawing = canvasRef.current.toDataURL('image/png');
+      localStorage.setItem('drawing', drawing);
     };
   };
 
@@ -54,15 +52,13 @@ export default function Toolbox({ canvasRef, contextRef }) {
           Tools
         </button>
         <form
-          action=''
-          // onClick={() => document.querySelector('.input-field').click()}
           onClick={handleClick}
           className='flex items-center justify-center h-12 w-12 rounded-full bg-sky-500 text-white cursor-pointer'
         >
           <BsImages size={25} />
           <input
             type='file'
-            ref={imgRef}
+            ref={inputRef}
             onChange={handleFileChange}
             accept='image/*'
             className='hidden'

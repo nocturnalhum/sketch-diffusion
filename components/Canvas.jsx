@@ -10,6 +10,9 @@ export default function Canvas({ canvasRef, contextRef }) {
     canvas.width = Math.min(window.innerWidth * 0.9, 1500);
     canvas.height = window.innerHeight * 0.85;
     const ctx = canvas.getContext('2d');
+    // Set the background color to white
+    ctx.fillStyle = '#FFF';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.lineCap = 'round';
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 10;
@@ -19,7 +22,15 @@ export default function Canvas({ canvasRef, contextRef }) {
       const image = new Image();
       image.src = savedDrawing;
       image.onload = () => {
-        ctx.drawImage(image, 0, 0);
+        const scale =
+          image.naturalWidth > image.naturalHeight
+            ? canvas.height / image.naturalHeight
+            : canvas.width / image.naturalWidth;
+        const imageWidth = image.naturalWidth * scale;
+        const imageHeight = image.naturalHeight * scale;
+        const startX = (canvas.width - imageWidth) / 2;
+        const startY = (canvas.height - imageHeight) / 2;
+        ctx.drawImage(image, startX, startY, imageWidth, imageHeight);
       };
     }
     const resize = () => {
@@ -28,10 +39,26 @@ export default function Canvas({ canvasRef, contextRef }) {
       ctx.canvas.style.width = `${window.innerWidth * 0.9}px`;
       ctx.canvas.style.height = `${window.innerHeight * 0.85}px`;
       ctx.lineWidth = 10;
+      const savedDrawing = localStorage.getItem('drawing');
+      if (savedDrawing) {
+        const image = new Image();
+        image.src = savedDrawing;
+        image.onload = () => {
+          const scale =
+            image.naturalWidth > image.naturalHeight
+              ? canvas.height / image.naturalHeight
+              : canvas.width / image.naturalWidth;
+          const imageWidth = image.naturalWidth * scale;
+          const imageHeight = image.naturalHeight * scale;
+          const startX = (canvas.width - imageWidth) / 2;
+          const startY = (canvas.height - imageHeight) / 2;
+          ctx.drawImage(image, startX, startY, imageWidth, imageHeight);
+        };
+      }
     };
     window.addEventListener('resize', resize);
     return () => window.removeEventListener('resize', resize);
-  }, []);
+  }, [canvasRef, contextRef]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -130,7 +157,7 @@ export default function Canvas({ canvasRef, contextRef }) {
       canvas.removeEventListener('mouseup', handleMouseUp);
       canvas.removeEventListener('mouseout', handleMouseOut);
     };
-  }, [isDrawing]);
+  }, [isDrawing, contextRef, canvasRef]);
 
   return <canvas ref={canvasRef} className='border border-black bg-white' />;
 }

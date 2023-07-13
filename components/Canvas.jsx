@@ -33,6 +33,8 @@ export default function Canvas({ canvasRef, contextRef }) {
         ctx.drawImage(image, startX, startY, imageWidth, imageHeight);
       };
     }
+    // TODO: Fix resize when tilting from portrait to landscrape
+    // Prioritize height not width
     const resize = () => {
       ctx.canvas.width = window.innerWidth * 0.9;
       ctx.canvas.height = window.innerHeight * 0.85;
@@ -68,7 +70,7 @@ export default function Canvas({ canvasRef, contextRef }) {
     // =============<<< Touch Events >>>===========================================
     // ============================================================================
     const handleTouchStart = (e) => {
-      e.preventDefault();
+      e.preventDefault(); // Prevent iOS magnifying glass from popping up while drawing
       const { touches } = e;
       const { pageX, pageY } = touches[0];
       const rect = canvas.getBoundingClientRect();

@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { BsImages } from 'react-icons/bs';
+import { BsImages, BsTrash3 } from 'react-icons/bs';
 import { SlActionUndo, SlActionRedo } from 'react-icons/sl';
+import { TfiSave } from 'react-icons/tfi';
 export default function Toolbox({ canvasRef, contextRef }) {
   const inputRef = useRef(null);
 
@@ -66,10 +67,10 @@ export default function Toolbox({ canvasRef, contextRef }) {
         </form>
       </div>
       <div className='flex space-x-1'>
-        <button className='flex items-center justify-center rounded-xl bg-sky-500 h-12 w-12 text-white select-none text-sm'>
+        <button className='flex items-center justify-center rounded-xl bg-sky-500 h-12 w-12 text-white select-none text-sm cursor-not-allowed'>
           <SlActionUndo size={25} />
         </button>
-        <button className='flex items-center justify-center rounded-xl bg-sky-500 h-12 w-12 text-white select-none text-sm'>
+        <button className='flex items-center justify-center rounded-xl bg-sky-500 h-12 w-12 text-white select-none text-sm cursor-not-allowed'>
           <SlActionRedo size={25} />
         </button>
       </div>
@@ -80,14 +81,14 @@ export default function Toolbox({ canvasRef, contextRef }) {
             href='download_link'
             className='rounded-xl px-2 py-3.5 select-none'
           >
-            Save
+            <TfiSave size={25} />
           </a>
         </div>
         <button
           onClick={clearCanvas}
-          className='rounded-xl bg-sky-500  h-12 w-12 text-white text-sm select-none'
+          className='flex items-center justify-center rounded-xl bg-sky-500  h-12 w-12 text-amber-400 text-sm select-none'
         >
-          Clear
+          <BsTrash3 size={25} />
         </button>
       </div>
     </div>

@@ -159,5 +159,10 @@ export default function Canvas({ canvasRef, contextRef }) {
     };
   }, [isDrawing, contextRef, canvasRef]);
 
-  return <canvas ref={canvasRef} className='border border-black bg-white' />;
+  return (
+    <canvas
+      ref={canvasRef}
+      className='border border-black bg-white select-none'
+    />
+  );
 }

@@ -48,12 +48,12 @@ export default function Toolbox({ canvasRef, contextRef }) {
   return (
     <div className='flex justify-between items-center w-[calc(100vw*0.95)] md:max-w-[1600px] h-12 md:h-16 rounded-full bg-gray-100 px-2 my-2'>
       <div className='flex items-center justify-center space-x-1'>
-        <button className='rounded-full bg-sky-500  h-12 w-12 text-white text-sm'>
+        <button className='rounded-full bg-sky-500  h-12 w-12 text-white select-none text-sm'>
           Tools
         </button>
         <form
           onClick={handleClick}
-          className='flex items-center justify-center h-12 w-12 rounded-full bg-sky-500 text-white cursor-pointer'
+          className='flex items-center justify-center h-12 w-12 rounded-full bg-sky-500 text-white select-none cursor-pointer'
         >
           <BsImages size={25} />
           <input
@@ -66,10 +66,10 @@ export default function Toolbox({ canvasRef, contextRef }) {
         </form>
       </div>
       <div className='flex space-x-1'>
-        <button className='flex items-center justify-center rounded-xl bg-sky-500 h-12 w-12 text-white text-sm'>
+        <button className='flex items-center justify-center rounded-xl bg-sky-500 h-12 w-12 text-white select-none text-sm'>
           <SlActionUndo size={25} />
         </button>
-        <button className='flex items-center justify-center rounded-xl bg-sky-500 h-12 w-12 text-white text-sm'>
+        <button className='flex items-center justify-center rounded-xl bg-sky-500 h-12 w-12 text-white select-none text-sm'>
           <SlActionRedo size={25} />
         </button>
       </div>
@@ -78,14 +78,14 @@ export default function Toolbox({ canvasRef, contextRef }) {
           <a
             onClick={savePNG}
             href='download_link'
-            className='rounded-xl px-2 py-3.5'
+            className='rounded-xl px-2 py-3.5 select-none'
           >
             Save
           </a>
         </div>
         <button
           onClick={clearCanvas}
-          className='rounded-xl bg-sky-500  h-12 w-12 text-white text-sm'
+          className='rounded-xl bg-sky-500  h-12 w-12 text-white text-sm select-none'
         >
           Clear
         </button>

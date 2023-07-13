@@ -68,6 +68,7 @@ export default function Canvas({ canvasRef, contextRef }) {
     // =============<<< Touch Events >>>===========================================
     // ============================================================================
     const handleTouchStart = (e) => {
+      e.preventDefault();
       const { touches } = e;
       const { pageX, pageY } = touches[0];
       const rect = canvas.getBoundingClientRect();

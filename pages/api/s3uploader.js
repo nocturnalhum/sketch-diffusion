@@ -25,7 +25,7 @@ export default async function aws(file) {
         'Content-type': String(file.type),
       },
     });
-    console.log('Data:', data);
+    console.log('Datum:', data);
 
     const uploadedImageUrl = `https://${process.env.NEXT_PUBLIC_S3_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_S3_BUCKET_REGION}.amazonaws.com/${file.name}`;
     console.log('Uploaded Image URL:', uploadedImageUrl);

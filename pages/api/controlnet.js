@@ -1,6 +1,7 @@
 import Replicate from 'replicate';
 
 const handler = async (req, res) => {
+  console.log('REST', req.method);
   if (req.method !== 'POST') {
     res.status(405).json({ message: 'Method not allowed.' });
     return;

@@ -14,7 +14,7 @@ export default async function aws(file) {
     const fileParams = {
       Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME,
       Key: file.name,
-      Expires: 600,
+      Expires: 60,
       ContentType: file.type,
     };
     const url = await s3.getSignedUrlPromise('putObject', fileParams);

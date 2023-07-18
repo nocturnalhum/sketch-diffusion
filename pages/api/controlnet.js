@@ -21,7 +21,7 @@ const handler = async (req, res) => {
       'jagilley/controlnet-scribble:435061a1b5a4c1e26740464bf786efdfa9cb3a3ac488595a2de23e143fdb0117',
       {
         input: {
-          image: 'https://i.postimg.cc/6pmtZy7j/cat.png',
+          image: img,
           prompt: value,
           // image_dimensions: '512x512',
           // num_inference_steps: 12,

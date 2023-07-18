@@ -11,8 +11,8 @@ export default function Canvas({ canvasRef, contextRef }) {
     canvas.height = window.innerHeight * 0.85;
     const ctx = canvas.getContext('2d');
     // Set the background color to white
-    ctx.fillStyle = '#FFF';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // ctx.fillStyle = '#FFF';
+    // ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.lineCap = 'round';
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 10;

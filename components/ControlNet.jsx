@@ -93,8 +93,10 @@ export default function ControlNet({ canvasRef }) {
       setImageUrl(data[0]);
       setImageUrlGenerated(data[1]);
       setLoading(false);
+      setMessage('Processing Complete');
     } else {
       console.error('Error', response.statusText);
+      setMessage('Error');
       setLoading(false);
     }
   };
